@@ -2,10 +2,9 @@ package mch
 
 import (
 	"fmt"
+	"github.com/zhyc9de/go-wechat"
 	"net"
 	"time"
-
-	"gitee.com/hzsuoyi/go-wechat.git/util"
 )
 
 // LocalIP 获取机器的IP

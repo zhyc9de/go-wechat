@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"time"
 
-	"gitee.com/hzsuoyi/go-wechat.git/util"
+	"github.com/zhyc9de/go-wechat"
 )
 
 type Client struct {

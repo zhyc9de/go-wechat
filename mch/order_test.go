@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"testing"
 
-	"gitee.com/hzsuoyi/go-wechat.git/mch"
-	"gitee.com/hzsuoyi/go-wechat.git/util"
-	"gitee.com/hzsuoyi/go-wechat.git/wxapp"
+	"github.com/zhyc9de/go-wechat"
+	"github.com/zhyc9de/go-wechat/mch"
+	"github.com/zhyc9de/go-wechat/wxapp"
 )
 
 func TestClient_SignTrade(t *testing.T) {

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"gitee.com/hzsuoyi/go-wechat.git/util"
+	"github.com/zhyc9de/go-wechat"
 )
 
 const tplMsgURL = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s"

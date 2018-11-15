@@ -10,7 +10,7 @@ import (
 	"net/http"
 	"strings"
 
-	"gitee.com/hzsuoyi/go-wechat.git/util"
+	"github.com/zhyc9de/go-wechat"
 )
 
 // 默认退全款

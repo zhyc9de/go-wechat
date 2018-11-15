@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"net/textproto"
 
-	"gitee.com/hzsuoyi/go-wechat.git/util"
+	"github.com/zhyc9de/go-wechat"
 )
 
 // https://developers.weixin.qq.com/miniprogram/dev/api/open-api/sec-check/imgSecCheck.html

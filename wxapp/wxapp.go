@@ -1,8 +1,8 @@
 package wxapp
 
 import (
-	"gitee.com/hzsuoyi/go-wechat.git/util"
 	"github.com/json-iterator/go"
+	"github.com/zhyc9de/go-wechat"
 )
 
 // 禁止转义html

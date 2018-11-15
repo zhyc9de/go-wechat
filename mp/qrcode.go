@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"gitee.com/hzsuoyi/go-wechat.git/util"
+	"github.com/zhyc9de/go-wechat"
 )
 
 const qrCodeURL = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=%s"

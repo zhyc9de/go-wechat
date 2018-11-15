@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"gitee.com/hzsuoyi/go-wechat.git/util"
+	"github.com/zhyc9de/go-wechat"
 )
 
 const codeURL = "https://api.weixin.qq.com/wxa/getwxacode?access_token=%s"

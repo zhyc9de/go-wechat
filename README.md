@@ -9,6 +9,7 @@ golang微信sdk，支持微信公众号，微信小程序，微信支付
 ## Usage
 
 ```
+# 支持go mod
 go get github.com/zhyc9de/go-wechat
 ```
 
@@ -83,4 +84,3 @@ go get github.com/zhyc9de/go-wechat
 - [ ] 文档
 - [ ] test
 - [ ] benchmark
-- [ ] 支持go mod

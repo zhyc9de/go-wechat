@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"gitee.com/hzsuoyi/go-wechat.git/util"
+	"github.com/zhyc9de/go-wechat"
 )
 
 func (client *Client) NewTransfers(appId, openId, tradeNo, desc, ip string, amount int64) Transfers {

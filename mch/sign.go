@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"gitee.com/hzsuoyi/go-wechat.git/util"
+	"github.com/zhyc9de/go-wechat"
 )
 
 var omitemptyReplacer = strings.NewReplacer(",omitempty", "")

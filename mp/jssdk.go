@@ -6,7 +6,7 @@ import (
 	"io"
 	"time"
 
-	"gitee.com/hzsuoyi/go-wechat.git/util"
+	"github.com/zhyc9de/go-wechat"
 )
 
 type JsSdkConfig struct {

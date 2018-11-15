@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"testing"
 
-	"gitee.com/hzsuoyi/go-wechat.git/util"
 	"github.com/json-iterator/go"
+	"github.com/zhyc9de/go-wechat"
 )
 
 var json = jsoniter.ConfigFastest
