@@ -2,10 +2,14 @@
 
 golang微信sdk，支持微信公众号，微信小程序，微信支付
 
+微信支付回调通过自定义`UnmarshalXML`实现直接解析struct
+
+已经实现了的功能可以详见功能模块
+
 ## Usage
 
 ```
-go get github.com/zhyc9de/go-wechat/...
+go get github.com/zhyc9de/go-wechat
 ```
 
 ## 文档准备中...
@@ -74,3 +78,9 @@ go get github.com/zhyc9de/go-wechat/...
 - [x] 退款
 - [x] 退款回调
 - [x] 付款到零钱
+
+### TODO
+- [ ] 文档
+- [ ] test
+- [ ] benchmark
+- [ ] 支持go mod
