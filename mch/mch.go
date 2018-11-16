@@ -21,7 +21,7 @@ type Client struct {
 	debug      bool         // 是否开启沙盒模式
 }
 
-func InitClient(mchId, mchKey, notifyURL, refundURL string) *Client {
+func NewClient(mchId, mchKey, notifyURL, refundURL string) *Client {
 	return &Client{
 		MchId:     mchId,
 		MchKey:    mchKey,
@@ -31,7 +31,7 @@ func InitClient(mchId, mchKey, notifyURL, refundURL string) *Client {
 	}
 }
 
-// 设置开发环境
+// 设置沙盒模式
 func (client *Client) Debug() {
 	client.debug = true
 }

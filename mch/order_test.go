@@ -11,7 +11,7 @@ import (
 )
 
 func TestClient_SignTrade(t *testing.T) {
-	client := mch.InitClient("test", "test2", "http://1270.0.0.1", "http://1270.0.01")
+	client := mch.NewClient("test", "test2", "http://1270.0.0.1", "http://1270.0.01")
 	appClient := wxapp.NewClient(weUtil.NewClient(weUtil.NewWxTokenMgr("", ""), nil))
 	trade := client.NewOrder(appClient.GetAppId(), "body", mch.NewTradeNo("fntt"), mch.TradeTypApp, "", 100)
 	sign := client.SignXml(trade)
@@ -49,6 +49,6 @@ func TestTradeCoupon_MarshalXML(t *testing.T) {
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	// 测试完一定记得删除key，不要提交到commit里
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	client := mch.InitClient("", "", "http://127.0.0.0.1", "http://1270.0.01")
+	client := mch.NewClient("", "", "http://127.0.0.0.1", "http://1270.0.01")
 	fmt.Println(client.SignXml(callback) == callback.Sign.Text)
 }
