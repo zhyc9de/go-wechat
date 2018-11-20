@@ -37,7 +37,7 @@ type (
 		SubButton *[]Button `json:"sub_button,omitempty"`
 	}
 
-	Matchrule struct {
+	MatchRule struct {
 		TagId              int64  `json:"tag_id,omitempty"`
 		Sex                int64  `json:"sex,omitempty"`
 		Country            string `json:"country,omitempty"`
@@ -50,7 +50,7 @@ type (
 	Menu struct {
 		weUtil.ErrResp
 		Button    []Button   `json:"button"`
-		Matchrule *Matchrule `json:"matchrule,omitempty"`
+		MatchRule *MatchRule `json:"matchrule,omitempty"`
 	}
 )
 
