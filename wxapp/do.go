@@ -4,6 +4,8 @@ type ShareTicket struct {
 	OpenGId string `json:"openGid"`
 }
 
+// Deprecated
+// 迁移至公众模块
 type Address struct {
 	UserName     string `json:"userName"`     // 收货人姓名
 	PostalCode   string `json:"postalCode"`   // 邮编
