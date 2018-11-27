@@ -10,11 +10,11 @@ import (
 )
 
 type TokenMgr interface {
-	GetAppId() string                                // 获取appId
-	GetAppSecret() string                            // 获取appSecret
-	Set(k, v string, expire int64) error             // 手动设置session
-	Get(k string) string                             // 获取session
-	GetToken() (token string, isNew bool, err error) // 获取accessToken
+	GetAppId() string                                     // 获取appId
+	GetAppSecret() string                                 // 获取appSecret
+	Set(k, v string, expire int64) error                  // 手动设置session
+	Get(k string) string                                  // 获取session
+	GetOrNewToken() (token string, isNew bool, err error) // 获取accessToken
 }
 
 const KeyToken = "token"
@@ -66,7 +66,7 @@ func (mgr *WxTokenMgr) GetAppSecret() string {
 	return mgr.AppSecret
 }
 
-func (mgr *WxTokenMgr) GetToken() (token string, isNew bool, err error) {
+func (mgr *WxTokenMgr) GetOrNewToken() (token string, isNew bool, err error) {
 	token = mgr.Get(KeyToken)
 	if token != "" {
 		return
@@ -141,7 +141,7 @@ func (mgr *RTokenMgr) GetAppSecret() string {
 	return mgr.AppSecret
 }
 
-func (mgr *RTokenMgr) GetToken() (token string, isNew bool, err error) {
+func (mgr *RTokenMgr) GetOrNewToken() (token string, isNew bool, err error) {
 	tokenKey := fmt.Sprintf("%s:%s", KeyToken, mgr.AppId)
 	token = mgr.session.Get(tokenKey).Val()
 	if token != "" {
