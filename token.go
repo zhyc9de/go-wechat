@@ -10,11 +10,11 @@ import (
 )
 
 type TokenMgr interface {
-	GetAppId() string                    // 获取appId
-	GetAppSecret() string                // 获取appSecret
-	Set(k, v string, expire int64) error // 手动设置session
-	Get(k string) string                 // 获取session
-	GetToken() string                    // 获取accessToken
+	GetAppId() string                                // 获取appId
+	GetAppSecret() string                            // 获取appSecret
+	Set(k, v string, expire int64) error             // 手动设置session
+	Get(k string) string                             // 获取session
+	GetToken() (token string, isNew bool, err error) // 获取accessToken
 }
 
 const KeyToken = "token"
@@ -66,18 +66,20 @@ func (mgr *WxTokenMgr) GetAppSecret() string {
 	return mgr.AppSecret
 }
 
-func (mgr *WxTokenMgr) GetToken() string {
-	token := mgr.Get(KeyToken)
+func (mgr *WxTokenMgr) GetToken() (token string, isNew bool, err error) {
+	token = mgr.Get(KeyToken)
 	if token != "" {
-		return token
+		return
 	}
 
 	newToken, err := fetchToken(mgr.AppId, mgr.AppSecret)
 	if err != nil {
-		return ""
+		return
 	}
-	mgr.Set(KeyToken, newToken.Token, newToken.Expires)
-	return newToken.Token
+	isNew = true
+	token = newToken.Token
+	err = mgr.Set(KeyToken, newToken.Token, newToken.Expires)
+	return
 }
 
 func (mgr *WxTokenMgr) Set(k, v string, expire int64) error {
@@ -139,21 +141,22 @@ func (mgr *RTokenMgr) GetAppSecret() string {
 	return mgr.AppSecret
 }
 
-func (mgr *RTokenMgr) GetToken() string {
+func (mgr *RTokenMgr) GetToken() (token string, isNew bool, err error) {
 	tokenKey := fmt.Sprintf("%s:%s", KeyToken, mgr.AppId)
-	token := mgr.session.Get(tokenKey).Val()
+	token = mgr.session.Get(tokenKey).Val()
 	if token != "" {
-		return token
+		return
 	}
 
 	newToken, err := fetchToken(mgr.AppId, mgr.AppSecret)
 	if err != nil {
-		return ""
+		return
 	}
 	// redis 就依赖expires
-	mgr.session.Set(tokenKey, newToken.Token, time.Duration(newToken.Expires)*time.Second)
-
-	return newToken.Token
+	isNew = true
+	token = newToken.Token
+	err = mgr.session.Set(tokenKey, newToken.Token, time.Duration(newToken.Expires)*time.Second).Err()
+	return
 }
 
 func (mgr *RTokenMgr) Set(k, v string, expire int64) error {

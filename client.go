@@ -27,7 +27,13 @@ func NewClient(tokenMgr TokenMgr, logger Logger) *Client {
 }
 
 func (c *Client) GetToken() string {
-	token := c.TokenMgr.GetToken()
-	c.Logger.Infof("wx-auth accessToken, appId=%s, token=%s", c.GetAppId(), token)
+	token, isNew, err := c.TokenMgr.GetToken()
+	if err != nil {
+		c.Logger.Errorf("wx-auth accessToken appId=%s, err=%s", err.Error(), c.GetAppId())
+		return ""
+	}
+	if isNew {
+		c.Logger.Infof("wx-auth accessToken, appId=%s, token=%s", c.GetAppId(), token)
+	}
 	return token
 }
