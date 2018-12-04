@@ -25,9 +25,11 @@ type Parameter struct {
 }
 
 type updateMsgParams struct {
-	ActivityId   string      `json:"activity_id"`
-	TargetState  int         `json:"target_state"`
-	TemplateInfo []Parameter `json:"template_info"`
+	ActivityId   string `json:"activity_id"`
+	TargetState  int    `json:"target_state"`
+	TemplateInfo struct {
+		ParameterList []Parameter `json:"parameter_list"`
+	} `json:"template_info"`
 }
 
 func (client *Client) CreateActivityId() (string, error) {
@@ -49,9 +51,13 @@ func (client *Client) UpdateMsg(activityId string, targetState int, info []Param
 	u := "https://api.weixin.qq.com/cgi-bin/message/wxopen/updatablemsg/send?access_token=" + client.GetToken()
 
 	body, err := json.Marshal(updateMsgParams{
-		ActivityId:   activityId,
-		TargetState:  targetState,
-		TemplateInfo: info,
+		ActivityId:  activityId,
+		TargetState: targetState,
+		TemplateInfo: struct {
+			ParameterList []Parameter `json:"parameter_list"`
+		}{
+			ParameterList: info,
+		},
 	})
 	if err != nil {
 		return err
