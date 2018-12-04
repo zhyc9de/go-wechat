@@ -69,6 +69,9 @@ go get github.com/zhyc9de/go-wechat
 - 内容安全
     - [x] 图片
     - [x] 文本
+- 动态消息
+    - [x] 新建
+    - [x] 更新
 
 ### 商户平台
 - [ ] 统一下单
