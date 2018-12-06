@@ -12,17 +12,19 @@ import (
 const codeURL = "https://api.weixin.qq.com/wxa/getwxacode?access_token=%s"
 const codeUnlimitURL = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=%s"
 
+type LineColor struct {
+	R string `json:"r"`
+	G string `json:"g"`
+	B string `json:"b"`
+}
+
 type WxaCode struct {
-	Path      string `json:"path"`
-	Scene     string `json:"scene,omitempty"` // 永久二维码，path不能带参数
-	Width     int    `json:"width,omitempty"`
-	AutoColor bool   `json:"auto_color"`
-	LineColor struct {
-		R string `json:"r"`
-		G string `json:"g"`
-		B string `json:"b"`
-	} `json:"line_color,omitempty"`
-	IsHyaline bool `json:"is_hyaline,omitempty"` // 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
+	Path      string     `json:"path"`
+	Scene     string     `json:"scene,omitempty"` // 永久二维码，path不能带参数
+	Width     int        `json:"width,omitempty"`
+	AutoColor bool       `json:"auto_color"`
+	LineColor *LineColor `json:"line_color,omitempty"`
+	IsHyaline bool       `json:"is_hyaline,omitempty"` // 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
 }
 
 // 生成小程序二维码
