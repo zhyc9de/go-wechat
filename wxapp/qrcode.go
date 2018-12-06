@@ -29,13 +29,13 @@ type WxaCode struct {
 
 // 生成小程序二维码
 // https://developers.weixin.qq.com/miniprogram/dev/api/open-api/qr-code/createWXAQRCode.html
-func (client *Client) WxaCode(param WxaCode, tmp bool) (wxacode []byte, err error) {
+func (client *Client) WxaCode(param WxaCode, unlimit bool) (wxacode []byte, err error) {
 	var u string
 	var data []byte
-	if tmp {
-		u = fmt.Sprintf(codeURL, client.GetToken())
-	} else {
+	if unlimit {
 		u = fmt.Sprintf(codeUnlimitURL, client.GetToken())
+	} else {
+		u = fmt.Sprintf(codeURL, client.GetToken())
 	}
 
 	if data, err = json.Marshal(param); err != nil {
