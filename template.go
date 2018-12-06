@@ -21,7 +21,7 @@ type (
 		MiniProgram struct {
 			AppId    string `json:"appid"`
 			PagePath string `json:"pagepath"`
-		}
+		} `json:"miniprogram"`
 	}
 
 	// 小程序端发送模板消息
