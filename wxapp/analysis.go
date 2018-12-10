@@ -21,7 +21,7 @@ const (
 
 type AnalysisDateRange struct {
 	BeginDate string `json:"begin_date"`
-	EndDate   string `json:"begin_date"`
+	EndDate   string `json:"end_date"`
 }
 
 func (client *Client) GetAnalysisData(action, begin, end string) (rb []byte, err error) {
