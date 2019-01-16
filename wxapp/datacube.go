@@ -19,6 +19,10 @@ const (
 	AnalysisVisitPage         = "getweanalysisappidvisitpage"         // 访问页面
 )
 
+var AnalysisActions = []string{AnalysisDailyRetain, AnalysisMonthlyRetain, AnalysisWeeklyRetain, AnalysisDailySummary,
+	AnalysisDailyVisitTrend, AnalysisMonthlyVisitTrend, AnalysisWeeklyVisitTrend, AnalysisUserPortrait,
+	AnalysisVisitDistribution, AnalysisVisitPage}
+
 type AnalysisDateRange struct {
 	BeginDate string `json:"begin_date"`
 	EndDate   string `json:"end_date"`
