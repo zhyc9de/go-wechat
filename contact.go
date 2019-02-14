@@ -93,19 +93,27 @@ type (
 		// 语音消息
 		Format      CDATA `xml:"Format"`
 		Recognition CDATA `xml:"Recognition"`
+		// 小程序卡片消息
+		Title        CDATA `xml:"Title"`
+		AppId        CDATA `xml:"AppId"`
+		PagePath     CDATA `xml:"PagePath"`
+		ThumbUrl     CDATA `xml:"ThumbUrl"`
+		ThumbMediaId CDATA `xml:"ThumbMediaId"`
 		// TODO 其他普通消息
 	}
 
 	// 接收事件推送
 	EventMsg struct {
-		Event        CDATA `xml:"Event"`
-		EventKey     CDATA `xml:"EventKey"`
-		Ticket       CDATA `xml:"Ticket"`
-		MenuID       int64 `xml:"MenuID"`
+		Event    CDATA `xml:"Event"`
+		EventKey CDATA `xml:"EventKey"`
+		Ticket   CDATA `xml:"Ticket"`
+		MenuID   int64 `xml:"MenuID"`
+		// 扫码推事件的事件推送
 		ScanCodeInfo struct {
 			ScanType   CDATA `xml:"ScanType"`
 			ScanResult CDATA `xml:"ScanResult"`
 		} `xml:"ScanCodeInfo"`
+		// 准备接收图片
 		SendPicsInfo struct {
 			Count   int64 `xml:"Count"`
 			PicList []struct {
@@ -114,6 +122,8 @@ type (
 				} `xml:"item"`
 			} `xml:"PicList"`
 		}
+		// 小程序进入客服
+		SessionFrom CDATA `xml:"SessionFrom"`
 	}
 
 	// 接受微信发来的消息
