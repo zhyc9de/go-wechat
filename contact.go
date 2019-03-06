@@ -150,8 +150,8 @@ type (
 	}
 
 	HrefData struct {
-		AppId string `json:"miniprogram_appid"`
-		Path  string `json:"miniprogram-path"`
+		AppId string
+		Path  string
 	}
 
 	TextHref struct {
@@ -190,10 +190,14 @@ type (
 
 	// 小程序卡片
 	ReturnWXAppMsg struct {
+		WXAppPath
 		Title        string `json:"title"`
-		AppId        string `json:"appid,omitempty"`
-		PagePath     string `json:"pagepath"`
 		ThumbMediaId string `json:"thumb_media_id"`
+	}
+
+	WXAppPath struct {
+		AppId    string `json:"appid,omitempty"`
+		PagePath string `json:"pagepath,omitempty"`
 	}
 
 	// 返回客服消息用的
@@ -394,9 +398,11 @@ func (c *Contact) NewMiniProgramPage(msg ReceiveMessage, title, appId, pagePath,
 		ToUserName: msg.GetFromUserName(),
 		MsgType:    ReturnMsgMiniprogramPage,
 		MiniProgramPage: &ReturnWXAppMsg{
+			WXAppPath: WXAppPath{
+				AppId:    appId,
+				PagePath: pagePath,
+			},
 			Title:        title,
-			AppId:        appId,
-			PagePath:     pagePath,
 			ThumbMediaId: thumbMediaId,
 		},
 	}
@@ -423,12 +429,12 @@ func (c *Client) SetContactHook(hook ContactHook) {
 
 func (c *Client) PostText(msg ReceiveMessage, text string) (SendMessage, error) {
 	message := c.NewText(msg, text)
-	return message, c.Send(message, nil)
+	return message, c.SendMessage(message, nil)
 }
 
 func (c *Client) PostImage(msg ReceiveMessage, mediaId string) (SendMessage, error) {
 	message := c.NewImage(msg, mediaId)
-	return message, c.Send(message, nil)
+	return message, c.SendMessage(message, nil)
 }
 
 func (c *Client) PostCard(msg ReceiveMessage, title, appId, pagePath, thumbMediaId string) (SendMessage, error) {
@@ -437,7 +443,7 @@ func (c *Client) PostCard(msg ReceiveMessage, title, appId, pagePath, thumbMedia
 
 func (c *Client) PostMiniProgramPage(msg ReceiveMessage, title, appId, pagePath, thumbMediaId string) (SendMessage, error) {
 	message := c.NewMiniProgramPage(msg, title, appId, pagePath, thumbMediaId)
-	return message, c.Send(message, nil)
+	return message, c.SendMessage(message, nil)
 }
 
 // Deprecated

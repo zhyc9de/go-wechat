@@ -31,8 +31,7 @@ type (
 		// 网页
 		Url string `json:"url,omitempty"`
 		// 小程序
-		AppId    string `json:"appid,omitempty"`
-		PagePath string `json:"pagepath,omitempty"`
+		weUtil.WXAppPath
 		// 子菜单
 		SubButton *[]Button `json:"sub_button,omitempty"`
 	}
