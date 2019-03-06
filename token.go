@@ -9,9 +9,21 @@ import (
 	"github.com/go-redis/redis"
 )
 
+type Config struct {
+	AppId     string `yaml:"appId" json:"appId"`
+	AppSecret string `yaml:"appSecret" json:"appSecret"`
+	Username  string `yaml:"username" json:"username"`
+	Name      string `yaml:"name" json:"name"`
+	IsMp      bool   `yaml:"isMp" json:"isMp"`
+}
+
 type TokenMgr interface {
-	GetAppId() string                                     // 获取appId
-	GetAppSecret() string                                 // 获取appSecret
+	// Deprecated
+	GetAppId() string // 获取appId
+	// Deprecated
+	GetAppSecret() string // 获取appSecret
+
+	GetConfig() Config                                    // 获取配置
 	Set(k, v string, expire int64) error                  // 手动设置session
 	Get(k string) string                                  // 获取session
 	GetOrNewToken() (token string, isNew bool, err error) // 获取accessToken
@@ -45,16 +57,24 @@ func fetchToken(appId, appSecret string) (token Token, err error) {
 
 // access_token 维护在内存中的基础版
 type WxTokenMgr struct {
-	AppId     string
-	AppSecret string
-	session   map[string]atomic.Value
+	Config
+	session map[string]atomic.Value
 }
 
 func NewWxTokenMgr(appId, appSecret string) *WxTokenMgr {
 	return &WxTokenMgr{
-		AppId:     appId,
-		AppSecret: appSecret,
-		session:   make(map[string]atomic.Value),
+		Config: Config{
+			AppId:     appId,
+			AppSecret: appSecret,
+		},
+		session: make(map[string]atomic.Value),
+	}
+}
+
+func NewWxTokenMgrByConfig(c Config) *WxTokenMgr {
+	return &WxTokenMgr{
+		Config:  c,
+		session: make(map[string]atomic.Value),
 	}
 }
 
@@ -64,6 +84,10 @@ func (mgr *WxTokenMgr) GetAppId() string {
 
 func (mgr *WxTokenMgr) GetAppSecret() string {
 	return mgr.AppSecret
+}
+
+func (mgr *WxTokenMgr) GetConfig() Config {
+	return mgr.Config
 }
 
 func (mgr *WxTokenMgr) GetOrNewToken() (token string, isNew bool, err error) {
@@ -120,16 +144,24 @@ func (mgr *WxTokenMgr) Get(k string) string {
 
 // 基于 go-redis 维护access_token
 type RTokenMgr struct {
-	AppId     string
-	AppSecret string
-	session   *redis.Client
+	Config
+	session *redis.Client
 }
 
 func NewRTokenMgr(appId, appSecret string, session *redis.Client) *RTokenMgr {
 	return &RTokenMgr{
-		AppId:     appId,
-		AppSecret: appSecret,
-		session:   session,
+		Config: Config{
+			AppId:     appId,
+			AppSecret: appSecret,
+		},
+		session: session,
+	}
+}
+
+func NewRTokenMgrByConfig(c Config, session *redis.Client) *RTokenMgr {
+	return &RTokenMgr{
+		Config:  c,
+		session: session,
 	}
 }
 
@@ -139,6 +171,10 @@ func (mgr *RTokenMgr) GetAppId() string {
 
 func (mgr *RTokenMgr) GetAppSecret() string {
 	return mgr.AppSecret
+}
+
+func (mgr *RTokenMgr) GetConfig() Config {
+	return mgr.Config
 }
 
 func (mgr *RTokenMgr) GetOrNewToken() (token string, isNew bool, err error) {
