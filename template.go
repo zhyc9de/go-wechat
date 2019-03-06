@@ -17,8 +17,8 @@ type (
 	// 公众号发送模板消息
 	MpTemplate struct {
 		TemplateMsg
-		Url         string    `json:"url"`
-		MiniProgram WXAppPath `json:"miniprogram"`
+		Url         string     `json:"url"`
+		MiniProgram *WXAppPath `json:"miniprogram,omitempty"`
 	}
 
 	// 小程序端发送模板消息
