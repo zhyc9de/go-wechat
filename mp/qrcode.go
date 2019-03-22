@@ -58,7 +58,18 @@ func NewTmpScendStr(sceneStr string) QrCodeParam {
 	}
 }
 
-func (client *Client) QrCode(param QrCodeParam) (ticket string, err error) {
+func (client *Client) QrCode(param QrCodeParam) (resp *QrCodeTicket, err error) {
+	data, err := json.Marshal(param)
+	if err != nil {
+		return
+	}
+	u := fmt.Sprintf(qrCodeURL, client.GetToken())
+	req, _ := http.NewRequest("POST", u, bytes.NewBuffer(data))
+	err = weUtil.DoRequestJson(req, resp)
+	return
+}
+
+func (client *Client) QrCodeTicket(param QrCodeParam) (ticket string, err error) {
 	data, err := json.Marshal(param)
 	if err != nil {
 		return
